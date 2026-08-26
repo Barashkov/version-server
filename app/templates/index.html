@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version Server - Управление сервисами</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Version Server</h1>
+            <p>Управление версиями сервисов на площадках</p>
+        </header>
+
+        <!-- Login Modal -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <h2>🔐 Авторизация</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Имя пользователя:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </form>
+                <p id="loginError" class="error"></p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="mainContent" class="hidden">
+            <!-- Navigation Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="areas">Площадки</button>
+                <button class="tab-btn" data-tab="services">Сервисы</button>
+            </div>
+
+            <!-- Areas Tab -->
+            <div id="areasTab" class="tab-content active">
+                <div class="section-header">
+                    <h2>📍 Управление площадками</h2>
+                    <button class="btn btn-primary" onclick="showCreateAreaModal()">+ Создать площадку</button>
+                </div>
+                
+                <div id="areasList" class="items-list">
+                    <!-- Areas will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Services Tab -->
+            <div id="servicesTab" class="tab-content">
+                <div class="section-header">
+                    <h2>⚙️ Управление сервисами</h2>
+                    <div class="filters">
+                        <select id="areaSelect" onchange="loadServices()">
+                            <option value="">Выберите площадку</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="showCreateServiceModal()">+ Создать сервис</button>
+                    </div>
+                </div>
+                
+                <div id="servicesList" class="items-list">
+                    <!-- Services will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Area Modal -->
+        <div id="createAreaModal" class="modal hidden">
+            <div class="modal-content">
+                <h2>➕ Создать площадку</h2>
+                <form id="createAreaForm">
+                    <div class="form-group">
+                        <label for="areaName">Имя площадки:</label>
+                        <input type="text" id="areaName" name="areaName" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Создать</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('createAreaModal')">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Create Service Modal -->
+        <div id="createServiceModal" class="modal hidden">
+            <div class="modal-content">
+                <h2>➕ Создать сервис</h2>
+                <form id="createServiceForm">
+                    <div class="form-group">
+                        <label for="serviceName">Имя сервиса:</label>
+                        <input type="text" id="serviceName" name="serviceName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceType">Тип сервиса:</label>
+                        <input type="text" id="serviceType" name="serviceType" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceUrl">URL сервиса:</label>
+                        <input type="url" id="serviceUrl" name="serviceUrl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceVersion">Версия:</label>
+                        <input type="text" id="serviceVersion" name="serviceVersion">
+                    </div>
+                    <div class="form-group">
+                        <label for="serviceStatus">Статус:</label>
+                        <input type="text" id="serviceStatus" name="serviceStatus">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Создать</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('createServiceModal')">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Service Modal -->
+        <div id="editServiceModal" class="modal hidden">
+            <div class="modal-content">
+                <h2>✏️ Редактировать сервис</h2>
+                <form id="editServiceForm">
+                    <input type="hidden" id="editServiceId">
+                    <div class="form-group">
+                        <label for="editServiceName">Имя сервиса:</label>
+                        <input type="text" id="editServiceName" name="serviceName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editServiceType">Тип сервиса:</label>
+                        <input type="text" id="editServiceType" name="serviceType" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editServiceUrl">URL сервиса:</label>
+                        <input type="url" id="editServiceUrl" name="serviceUrl" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editServiceVersion">Версия:</label>
+                        <input type="text" id="editServiceVersion" name="serviceVersion">
+                    </div>
+                    <div class="form-group">
+                        <label for="editServiceStatus">Статус:</label>
+                        <input type="text" id="editServiceStatus" name="serviceStatus">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('editServiceModal')">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Загрузка...</p>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+services:
+  version-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: version-server
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=${FLASK_ENV:-production}
+      - DEBUG=${DEBUG:-False}
+      - HOST=${HOST:-0.0.0.0}
+      - PORT=${PORT:-5000}
+      - AUTH_USERNAME=${AUTH_USERNAME:-admin}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "${PORT:-5000}:${PORT:-5000}"
+    volumes:
+      - ./services.json:/app/services.json
+    env_file:
+      - .env
+    networks:
+      - version-network
+
+networks:
+  version-network:
+    driver: bridge
