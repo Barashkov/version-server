@@ -46,7 +46,7 @@ version-server/
 
 1. **Клонировать репозиторий**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Barashkov/version-server
    cd version-server
    ```
 
@@ -102,7 +102,7 @@ version-server/
 | `HOST` | Хост для запуска | `0.0.0.0` |
 | `PORT` | Порт | `5000` |
 | `AUTH_USERNAME` | Имя пользователя для HTTP Basic Auth | `admin` |
-| `AUTH_PASSWORD` | Пароль для HTTP Basic Auth | `admin1admin` |
+| `AUTH_PASSWORD` | Пароль для HTTP Basic Auth | `admin` |
 | `DATA_FILE` | Путь к файлу с данными | `services.json` |
 | `LOG_LEVEL` | Уровень логирования | `INFO` |
 
@@ -258,53 +258,6 @@ http://localhost:5000/
    - Удаление сервисов
    - Просмотр детальной информации о сервисах
 
-## 🔄 Изменения в рефакторинге
-
-### Безопасность
-- ✅ Перенесены пароли и конфигурация в `.env`
-- ✅ Убран hardcoded пароль
-- ✅ Добавлено валидация конфигурации
-- ✅ Debug mode отключен по умолчанию
-- ✅ Non-root пользователь в Docker
-
-### Архитектура
-- ✅ Разбита на модули (models, routes, services, utils)
-- ✅ Добавлен App Factory pattern
-- ✅ Thread-safe DataManager с блокировками
-- ✅ Валидация данных через Pydantic
-- ✅ Структурированное логирование
-
-### Качество кода
-- ✅ Исправлены опечатки в названиях функций
-- ✅ Исправлен порядок параметров в функциях
-- ✅ Убраны debug print statements
-- ✅ Добавлены type hints
-- ✅ Убран закомментированный код
-- ✅ Добавлена обработка ошибок
-
-### Данные
-- ✅ Thread-safe операции с файлами
-- ✅ Валидация схемы данных
-- ✅ Обработка ошибок при работе с файлами
-
-### Docker
-- ✅ Исправлен путь в docker-compose.yml
-- ✅ Добавлен .dockerignore
-- ✅ Добавлен healthcheck
-- ✅ Использован slim образ Python
-- ✅ Non-root пользователь
-
-### Dependencies
-- ✅ Pinned versions в requirements.txt
-- ✅ Убраны лишние зависимости
-- ✅ Добавлены тестовые зависимости
-
-### Тестирование
-- ✅ Добавлен pytest
-- ✅ Добавлены тесты для DataManager
-- ✅ Добавлены тесты для API endpoints
-- ✅ Добавлены fixtures
-
 ## 📚 Дальнейшие улучшения
 
 1. **База данных** - рассмотреть замену JSON на SQLite/PostgreSQL
@@ -317,8 +270,8 @@ http://localhost:5000/
 
 ## 📄 Лицензия
 
-[Укажите лицензию вашего проекта]
+MIT
 
 ## 👥 Авторы
 
-[Укажите авторов проекта]
+barashkovu@gmail.com
