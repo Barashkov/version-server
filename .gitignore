@@ -46,7 +46,7 @@ htmlcov/
 Thumbs.db
 
 # Data
-services.json
+# services.json is committed as an initial empty file
 
 # Generated/temporary files
 pip_install.txt
