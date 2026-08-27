@@ -9,6 +9,7 @@ from app.routes.services import services_bp
 from app.routes.web import web_bp
 
 logger = get_logger(__name__)
+__version__ = "0.3.0"
 
 
 def create_app(data_file: str = None):
@@ -37,7 +38,7 @@ def create_app(data_file: str = None):
     swagger = Swagger(app, template={
         "info": {
             "title": "Version Server API",
-            "version": "0.2.0",
+            "version": __version__,
             "description": "API for managing service versions across different areas"
         },
         "securityDefinitions": {

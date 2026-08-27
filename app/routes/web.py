@@ -6,4 +6,5 @@ web_bp = Blueprint('web', __name__)
 @web_bp.route('/')
 def index():
     """Serve the main web interface."""
-    return render_template('index.html')
+    from app import __version__
+    return render_template('index.html', version=__version__)
