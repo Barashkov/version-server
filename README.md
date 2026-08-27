@@ -74,18 +74,24 @@ version-server/
 
 ### Docker
 
-1. **Настроить переменные окружения**
+1. **Клонировать репозиторий**
+   ```bash
+   git clone https://github.com/Barashkov/version-server
+   cd version-server
+   ```
+
+2. **Настроить переменные окружения**
    ```bash
    cp .env.example .env
    # Отредактировать .env с вашими настройками
    ```
 
-2. **Запустить через docker-compose**
+3. **Запустить через docker-compose**
    ```bash
    docker-compose up -d
    ```
 
-3. **Проверить статус**
+4. **Проверить статус**
    ```bash
    docker-compose ps
    docker-compose logs -f
